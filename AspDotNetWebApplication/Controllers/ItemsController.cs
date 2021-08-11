@@ -1,24 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AspDotNetWebApplication.Data.Interfaces;
+using AspDotNetWebApplication.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AspDotNetWebApplication.Controllers
 {
     public class ItemsController : Controller
     {
+        private readonly IItemRepo _repository;
+
+        public ItemsController(IItemRepo repository)
+        {
+            _repository = repository;
+        }
+
         // GET: ItemsController
         public ActionResult Index()
         {
-            return View();
+            return View(_repository.GetAllItems());
         }
 
         // GET: ItemsController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_repository.GetItemById(id));
         }
 
         // GET: ItemsController/Create
@@ -30,10 +35,11 @@ namespace AspDotNetWebApplication.Controllers
         // POST: ItemsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Item newItem)
         {
             try
             {
+                _repository.CreateItem(newItem);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -45,16 +51,18 @@ namespace AspDotNetWebApplication.Controllers
         // GET: ItemsController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var itemToEdit = _repository.GetItemById(id);
+            return View(itemToEdit);
         }
 
         // POST: ItemsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Item item)
         {
             try
             {
+                _repository.UpdateItem(item);
                 return RedirectToAction(nameof(Index));
             }
             catch

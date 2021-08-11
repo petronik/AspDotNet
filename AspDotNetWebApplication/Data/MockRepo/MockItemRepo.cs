@@ -45,7 +45,10 @@ namespace AspDotNetWebApplication.Data.MockRepo
         public void UpdateItem(Item input)
         {
             var itemToUpdate = _items.FirstOrDefault(i => i.Id == input.Id);
-
+            if(itemToUpdate != null)
+            {
+                itemToUpdate = input;
+            }
         }
     }
 }
