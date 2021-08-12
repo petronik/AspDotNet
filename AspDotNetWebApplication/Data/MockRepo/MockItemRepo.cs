@@ -13,7 +13,7 @@ namespace AspDotNetWebApplication.Data.MockRepo
         {
             new Item{ Id = 101, Name = "Boiled Water", Price = 15.55},
             new Item{ Id = 102, Name = "Fresh Stones", Price = 19.99},
-            new Item{ Id = 101, Name = "Boiled Water", Price = 2.22}
+            new Item{ Id = 103, Name = "White paper", Price = 2.22}
         };
         public void CreateItem(Item input)
         {
@@ -44,10 +44,16 @@ namespace AspDotNetWebApplication.Data.MockRepo
 
         public void UpdateItem(Item input)
         {
-            var itemToUpdate = _items.FirstOrDefault(i => i.Id == input.Id);
-            if(itemToUpdate != null)
+            var itemInTheList = _items.FirstOrDefault(i => i.Id == input.Id);
+            if(itemInTheList != null)
             {
-                itemToUpdate = input;
+                /*
+                _items.Remove(itemInTheList);
+                _items.Add(input);
+                _items.Sort((a, b) => (a.Id).CompareTo(b.Id));
+                */
+                if(input.Name != itemInTheList.Name) itemInTheList.Name = input.Name;
+                if(input.Price) itemInTheList.Price = input.Price;
             }
         }
     }

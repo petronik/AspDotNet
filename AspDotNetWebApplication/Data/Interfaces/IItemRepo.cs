@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AspDotNetWebApplication.Data.Interfaces
 {
-    interface IItemRepo
+    public interface IItemRepo
     {
         IEnumerable<Item> GetAllItems();
         Item GetItemById(int id); //Read
