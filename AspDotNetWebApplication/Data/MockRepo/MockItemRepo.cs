@@ -53,7 +53,7 @@ namespace AspDotNetWebApplication.Data.MockRepo
                 _items.Sort((a, b) => (a.Id).CompareTo(b.Id));
                 */
                 if(input.Name != itemInTheList.Name) itemInTheList.Name = input.Name;
-                if(input.Price) itemInTheList.Price = input.Price;
+                if(input.Price != itemInTheList.Price) itemInTheList.Price = input.Price;
             }
         }
     }
