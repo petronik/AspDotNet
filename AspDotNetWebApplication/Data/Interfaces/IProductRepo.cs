@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AspDotNetWebApplication.Data.Interfaces
 {
-    interface IProductRepo
+    public interface IProductRepo
     {
-        IEnumerable<Vendor> GetAllVendors();
+        IEnumerable<Product> GetAllProducts();
     }
 }
