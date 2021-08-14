@@ -34,5 +34,17 @@ namespace AspDotNetWebApplication.Controllers
                 .ToList();
             return View(list);
         }
+
+        public IEnumerable<string> GetProductsByVendorId(int? id)
+        {
+            var res = _productRepo.GetAllProducts()
+                .Where(p => p.V_code == id)
+                .Select(p => p.P_descript + "\t$" + p.P_Price + "<br>");
+            if(res == null || res.Count() == 0)
+            {
+                return new List<string> { "No product found" };
+            }
+            return res;
+        }
     }
 }
